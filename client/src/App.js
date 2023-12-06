@@ -1,9 +1,10 @@
 import './App.css';
+import ListHeader from './components/ListHeader';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Hello World!!!
+    <div className="app">
+      <ListHeader listName={'🏖️ Holiday checklist!!!'}/>
     </div>
   )
 }
