@@ -25,7 +25,7 @@ router.post('/create', async (req, res) => {
 
 //edit todo
 router.put('/:id', async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
   const values = {
     user_email: req.body.data.user_email,
     title: req.body.data.title,
@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) => {
   try {
     const updatedTodo = await TodoModel.update(values, {
       where: { id },
-      order: [['id', 'ASC']]
+      order: [['id', 'ASC']],
     })
     console.log('updated todo : ', updatedTodo)
     return res
@@ -47,6 +47,21 @@ router.put('/:id', async (req, res) => {
   }
 })
 
+//delete todo
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const deletedTodo = await TodoModel.destroy({
+      where: { id },
+    })
+    console.log('deleted todo : ', deletedTodo) // shows number of items deleted
+    return res
+      .status(204)
+      .json({ status: 'success', message: 'Data deleted successfully' })
+  } catch (err) {
+    console.log(err)
+  }
+})
 
 //get all todo
 router.get('/:userEmail', async (req, res) => {
@@ -55,7 +70,7 @@ router.get('/:userEmail', async (req, res) => {
   try {
     const todoList = await TodoModel.findAll({
       where: { user_email: userEmail },
-      order: [['id', 'ASC']]
+      order: [['id', 'ASC']],
     })
     // console.log('todo list: ', todoList)
     res.send(todoList)
